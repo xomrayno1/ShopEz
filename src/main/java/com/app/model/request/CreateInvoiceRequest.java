@@ -22,7 +22,7 @@ public class CreateInvoiceRequest {
 	private String ward;
 	private String street;
  
-	private String voucher;
+	private String voucherCode;
 
 	private List<CreateInvoiceDetailRequest> details;
 	
@@ -100,12 +100,14 @@ public class CreateInvoiceRequest {
 		this.details = details;
 	}
 
-	public String getVoucher() {
-		return voucher;
+	public String getVoucherCode() {
+		return voucherCode;
 	}
 
-	public void setVoucher(String voucher) {
-		this.voucher = voucher;
+	public void setVoucherCode(String voucherCode) {
+		this.voucherCode = voucherCode;
 	}
+
+ 
  
 }

@@ -1,0 +1,10 @@
+INSERT INTO USERS(id, username, password, email,status,created_date, updated_date) values (1, 'admin','$2a$10$1HPIA/uJcAyAaJfcFcudG.cnOqmaMuKIMlVpeDvTKh3UoprGbJamG','admin@gmail.com',1, '2022-02-05', '2022-02-05');
+INSERT INTO USERS(id, username, password, email,status,created_date, updated_date) values (2, 'xomrayno1','$2a$10$1HPIA/uJcAyAaJfcFcudG.cnOqmaMuKIMlVpeDvTKh3UoprGbJamG','xr1@gmail.com',1, '2022-02-05', '2022-02-05');
+
+INSERT INTO ROLES(id, NAME) VALUES (1, 'ROLE_ADMIN');
+INSERT INTO ROLES(id, NAME) VALUES (2, 'ROLE_USER');
+
+
+INSERT INTO USER_ROLE(user_id,role_id) VALUES (1,1);
+INSERT INTO USER_ROLE(user_id,role_id) VALUES (2,2);
+ 

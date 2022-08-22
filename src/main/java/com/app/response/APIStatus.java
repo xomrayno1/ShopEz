@@ -36,44 +36,12 @@ public enum APIStatus {
 	ERR_UPDATE_USER(160, "Không thể cập nhật user."),
 	ERR_USER_LEVEL_NOT_EXIST(157, "Chức vụ không tồn tại."),
 	ERR_USER_DEPARTMENT_NOT_EXIST(157,"Phòng ban không tồn tại."),
-	//notify err message shop
-	ERR_SHOP_LIST_IS_EMPTY(156, "Danh sách đơn vị trống."),
-	ERR_SHOP_ID_NOT_EXIST(157, "Đơn vị không tồn tại."),
-	ERR_SHOP_CODE_ALREADY_EXISTS(158, "Đơn vị đã tồn tại."),
-	ERR_CREATE_SHOP(159, "Không thể thêm đơn vị."),
-	ERR_UPDATE_SHOP(160, "Không thể cập nhật đơn vị."),
-	//notify err message warehouse
-	ERR_WAREHOUSE_LIST_IS_EMPTY(156, "Danh sách kho trống."),
-	ERR_WAREHOUSE_ID_NOT_EXIST(157, "Kho không tồn tại."),
-	ERR_WAREHOUSE_CODE_ALREADY_EXISTS(158, "Kho đã tồn tại."),
-	ERR_CREATE_WAREHOUSE(159, "Không thể thêm kho."),
-	ERR_UPDATE_WAREHOUSE(160, "Không thể cập nhật kho."),
-	//notify err message department
-	ERR_DEPARTMENT_LIST_IS_EMPTY(156, "Danh sách phòng ban trống."),
-	ERR_DEPARTMENT_ID_NOT_EXIST(157, "Phòng ban không tồn tại."),
-	ERR_DEPARTMENT_CODE_ALREADY_EXISTS(158, "Phòng ban đã tồn tại."),
-	ERR_CREATE_DEPARTMENT(159, "Không thể thêm phòng ban."),
-	ERR_UPDATE_DEPARTMENT(160, "Không thể cập nhật phòng ban."),
-	//notify err message supplier
-	ERR_SUPPLIER_LIST_IS_EMPTY(156, "Danh sách nhà cung cấp trống."),
-	ERR_SUPPLIER_ID_NOT_EXIST(157, "Nhà cung cấp không tồn tại."),
-	ERR_SUPPLIER_CODE_ALREADY_EXISTS(158, "Nhà cung cấp đã tồn tại."),
-	ERR_CREATE_SUPPLIER(159, "Không thể thêm nhà cung cấp."),
-	ERR_UPDATE_SUPPLIER(160, "Không thể cập nhật nhà cung cấp."),
-	//notify err message drug
-	ERR_DRUG_LIST_IS_EMPTY(156, "Danh sách thuốc trống."),
-	ERR_DRUG_ID_NOT_EXIST(157, "Thuốc không tồn tại."),
-	ERR_DRUG_CODE_ALREADY_EXISTS(158, "Thuốc đã tồn tại."),
-	ERR_CREATE_DRUG(159, "Không thể thêm thuốc."),
-	ERR_UPDATE_DRUG(160, "Không thể cập nhật thuốc."),
-	
-	//notify err message patient
-	ERR_PATIENT_LIST_IS_EMPTY(156, "Danh sách bệnh nhân trống."),
-	ERR_PATIENT_ID_NOT_EXIST(157, "Bệnh nhân không tồn tại."),
-	ERR_PATIENT_CODE_ALREADY_EXISTS(158, "Bệnh nhân đã tồn tại."),
-	ERR_CREATE_PATIENT(159, "Không thể thêm bệnh nhân."),
-	ERR_UPDATE_PATIENT(160, "Không thể cập nhật bệnh nhân."),
-	
+	//notify err message voucher 
+	ERR_VOUCHER_LIST_IS_EMPTY(156, "Danh sách voucher trống."),
+	ERR_VOUCHER_ID_NOT_EXIST(157, "Voucher không tồn tại."),
+	ERR_VOUCHER_CODE_ALREADY_EXISTS(158, "Voucher đã tồn tại."),
+	ERR_CREATE_VOUCHER(159, "Không thể thêm voucher."),
+	ERR_UPDATE_VOUCHER(160, "Không thể cập nhật voucher."),
 	//notify err message invoice
 	ERR_INVOICE_LIST_IS_EMPTY(156, "Danh sách hoá đơn trống."),
 	ERR_INVOICE_ID_NOT_EXIST(157, "Hoá đơn nhân không tồn tại."),

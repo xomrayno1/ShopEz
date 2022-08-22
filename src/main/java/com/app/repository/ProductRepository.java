@@ -15,11 +15,7 @@ public interface ProductRepository extends CrudRepository<Product, Long>, JpaSpe
 
 	@Override
 	List<Product> findAll();
-	
-	Optional<Product> findByNameEn(String nameEn);
-	
-	Optional<Product> findByNameVi(String nameVi);
-	
+	 
 	Optional<Product> findByCode(String code);
 	
 	List<Product> findByCategory(Category category);

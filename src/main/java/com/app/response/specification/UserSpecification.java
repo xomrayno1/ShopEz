@@ -11,6 +11,7 @@ import javax.persistence.criteria.Root;
 import org.springframework.data.jpa.domain.Specification;
 
 import com.app.model.Users;
+import com.app.utils.Constant;
 
 public class UserSpecification implements Specification<Users>{
 	/**
@@ -18,13 +19,11 @@ public class UserSpecification implements Specification<Users>{
 	 */
 	private static final long serialVersionUID = 1L;
 	private String searchKey;
-	private Integer status;
-	
-	 
 
-	public UserSpecification(String searchKey, Integer status) {
+
+	public UserSpecification(String searchKey) {
 		this.searchKey = searchKey;
-		this.status = status;
+		
 	}
 
 	@Override
@@ -40,10 +39,10 @@ public class UserSpecification implements Specification<Users>{
 			predicates.add(searchPredicate);
 		}
 		
-		if(status != null) {
-			Predicate proStatus = criteriaBuilder.equal(root.get("status"), status);
-			predicates.add(proStatus);
-		}
+		
+		Predicate proStatus = criteriaBuilder.equal(root.get("status"), Constant.Status.ACTIVE.getValue());
+		predicates.add(proStatus);
+
  
 		return criteriaBuilder.and(predicates.toArray(new Predicate[]{}));
 	}

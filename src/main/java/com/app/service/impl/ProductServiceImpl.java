@@ -69,18 +69,6 @@ public class ProductServiceImpl implements ProductService{
 	}
 
 	@Override
-	public Product findByNameEn(String nameEn) {
-		// TODO Auto-generated method stub
-		return proRepo.findByNameEn(nameEn).orElse(null);
-	}
-
-	@Override
-	public Product findByNameVi(String nameVi) {
-		// TODO Auto-generated method stub
-		return proRepo.findByNameVi(nameVi).orElse(null);
-	}
-
-	@Override
 	public Product findByCode(String code) {
 		// TODO Auto-generated method stub
 		return proRepo.findByCode(code).orElse(null);

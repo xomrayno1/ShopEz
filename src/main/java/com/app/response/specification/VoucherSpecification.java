@@ -10,21 +10,21 @@ import javax.persistence.criteria.Root;
 
 import org.springframework.data.jpa.domain.Specification;
 
-import com.app.model.Product;
+import com.app.model.Voucher;
 import com.app.utils.Constant;
  
-public class ProductSpecification implements Specification<Product>{
+public class VoucherSpecification implements Specification<Voucher>{
 
 	private String searchKey;
  
-	public ProductSpecification(String searchKey ) {
+	public VoucherSpecification(String searchKey ) {
 		 
 		this.searchKey = searchKey;
 	 
 	}
 
 	@Override
-	public Predicate toPredicate(Root<Product> root, CriteriaQuery<?> query, CriteriaBuilder criteriaBuilder) {
+	public Predicate toPredicate(Root<Voucher> root, CriteriaQuery<?> query, CriteriaBuilder criteriaBuilder) {
 		// TODO Auto-generated method stub
 		List<Predicate> predicates = new ArrayList<>();
 		

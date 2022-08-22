@@ -57,9 +57,6 @@ public class SecurityConfigurer  extends WebSecurityConfigurerAdapter{
                 .authorizeRequests()
                 .antMatchers("/authenticate","/", "/api/v1/**").permitAll()
                 //.antMatchers("/api/v1/products/**").hasRole("ADMIN")
-                //.antMatchers("/api/v1/booking/**").hasRole("ADMIN")
-                //.antMatchers("/api/v1/doctors/**").hasRole("ADMIN")
-                //.antMatchers("/api/v1/patients/**").hasRole("ADMIN")
                 // all other requests need to be authenticated
                 //.anyRequest().authenticated().and().
                 .and().

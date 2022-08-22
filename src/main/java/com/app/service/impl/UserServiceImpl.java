@@ -83,9 +83,9 @@ public class UserServiceImpl  implements UserService{
 	}
 
 	@Override
-	public Page<Users> doFilterSearchPagingUsers(String searchKey, Integer status, int pageSize, int pageNumber) {
+	public Page<Users> doFilterSearchPagingUsers(String searchKey, int pageSize, int pageNumber) {
 		// TODO Auto-generated method stub
-		return userRepo.findAll(new UserSpecification(searchKey, status),
+		return userRepo.findAll(new UserSpecification(searchKey),
 				PageRequest.of(pageNumber - 1, pageSize));
 	}
 

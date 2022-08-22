@@ -1,6 +1,10 @@
+/**
+ * 
+ */
 package com.app.model.request;
 
-public class UserPagingSearchSortModel {
+ 
+public class VoucherPagingSearchSortModel {
 	private String searchKey;
 	private int pageNumber;
     private int pageSize;
@@ -23,6 +27,7 @@ public class UserPagingSearchSortModel {
 	public void setPageSize(int pageSize) {
 		this.pageSize = pageSize;
 	}
- 
+    
+    
     
 }

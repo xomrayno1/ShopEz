@@ -26,6 +26,7 @@ import com.app.model.Invoice;
 import com.app.model.InvoiceDetail;
 import com.app.model.Product;
 import com.app.model.Users;
+import com.app.model.Voucher;
 import com.app.model.request.CreateInvoiceDetailRequest;
 import com.app.model.request.CreateInvoiceRequest;
 import com.app.model.request.DeleteRequest;
@@ -36,19 +37,21 @@ import com.app.response.APIStatus;
 import com.app.service.InvoiceService;
 import com.app.service.ProductService;
 import com.app.service.UserService;
+import com.app.service.VoucherService;
 import com.app.utils.Constant;
 import com.app.utils.ResponseUtil;
 
 
 @RestController
 @RequestMapping(value = Constant.INVOICE_API)
-@CrossOrigin(origins = {Constant.CROSS_ORIGIN_LOCAL_8000, Constant.CROSS_ORIGIN_LOCAL_8001, Constant.CROSS_ORIGIN_LOCAL_8080 })
+@CrossOrigin(origins = {Constant.CROSS_ORIGIN_LOCAL_8000, Constant.CROSS_ORIGIN_LOCAL_8001, Constant.CROSS_ORIGIN_LOCAL_8080, Constant.CROSS_ORIGIN_LOCAL_3000, Constant.CROSS_ORIGIN_LOCAL_3001 })
 public class InvoiceRestController {
 
 	private InvoiceService invoiceService;
 	
 	private UserService userService;
- 
+	
+	private VoucherService voucherService;
 	
 	private ProductService productService;
 	 
@@ -62,11 +65,12 @@ public class InvoiceRestController {
 
 	@Autowired
 	public InvoiceRestController(InvoiceService invoiceService, UserService userService, ProductService productService,
-			InvoiceDetailRepository invoiceDetailRepo) {
+			InvoiceDetailRepository invoiceDetailRepo, VoucherService voucherService) {
 		this.invoiceService = invoiceService;
 		this.userService = userService;
 		this.productService = productService;
 		this.invoiceDetailRepo = invoiceDetailRepo;
+		this.voucherService = voucherService;
 	}
  
 	
@@ -144,7 +148,16 @@ public class InvoiceRestController {
 				totalAmount = totalAmount.add(detail.getAmout() != null ? detail.getAmout() : BigDecimal.ZERO);
 				invoiceDetailRepo.save(invoiceDetail);
 			}
-			//totalAmount = totalAmount.add(BigDecimal.ZERO);
+			BigDecimal discountAmount = BigDecimal.ZERO;
+			if(invoiceRequest.getVoucherCode() != null && !invoiceRequest.getVoucherCode().trim().isEmpty()) {
+				Voucher voucher = voucherService.findByCode(invoiceRequest.getVoucherCode());
+				if(voucher != null && voucher.getDiscount() != null) {
+					discountAmount = totalAmount.multiply(new BigDecimal(voucher.getDiscount())).divide(new BigDecimal(100));
+				}
+			}
+			invoice.setAmount(totalAmount);
+			invoice.setDiscount(discountAmount);
+			totalAmount = totalAmount.subtract(discountAmount);
 			newInvoice.setTotalAmount(totalAmount);
 			invoiceService.update(newInvoice);
  
@@ -157,7 +170,7 @@ public class InvoiceRestController {
 			throw new ApplicationException(APIStatus.ERR_CREATE_INVOICE);
 		}
 	}
-	
+ 
 	@PostMapping(value = Constant.INVOICE_DELETE)
 	public ResponseEntity<APIResponse> deleteInvoice(@RequestBody DeleteRequest deleteRequest){
 		try {

@@ -38,7 +38,7 @@ import com.app.utils.ResponseUtil;
 
 @RestController
 @RequestMapping(value = Constant.USER_API)
-@CrossOrigin(origins = {Constant.CROSS_ORIGIN_LOCAL_8000, Constant.CROSS_ORIGIN_LOCAL_8001, Constant.CROSS_ORIGIN_LOCAL_8080 })
+@CrossOrigin(origins = {Constant.CROSS_ORIGIN_LOCAL_8000, Constant.CROSS_ORIGIN_LOCAL_8001, Constant.CROSS_ORIGIN_LOCAL_8080, Constant.CROSS_ORIGIN_LOCAL_3000, Constant.CROSS_ORIGIN_LOCAL_3001 })
 public class UserRestController {
 
 	private UserService userService;
@@ -62,7 +62,7 @@ public class UserRestController {
 	
 	@PostMapping(value = Constant.USER_GET_LIST_PAGING_SORT_SEARCH_FILTER)
 	public ResponseEntity<APIResponse> getListPagingSortSearchFilter(@RequestBody UserPagingSearchSortModel cpssm){
-		Page<Users> users =  userService.doFilterSearchPagingUsers(cpssm.getSearchKey(), cpssm.getStatus(),
+		Page<Users> users =  userService.doFilterSearchPagingUsers(cpssm.getSearchKey(), 
 										cpssm.getPageSize(), cpssm.getPageNumber());
 		try {
  

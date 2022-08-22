@@ -1,19 +1,10 @@
 /**
  * 
  */
-package com.app.model;
-
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-
-@Entity
-public class Voucher extends BaseEntity{
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+package com.app.model.request;
+ 
+public class UpdateVoucherRequest {
 	private Long id;
-	private String code;
 	private String name;
 	private Integer discount;
 	
@@ -22,12 +13,6 @@ public class Voucher extends BaseEntity{
 	}
 	public void setId(Long id) {
 		this.id = id;
-	}
-	public String getCode() {
-		return code;
-	}
-	public void setCode(String code) {
-		this.code = code;
 	}
 	public String getName() {
 		return name;
@@ -41,8 +26,6 @@ public class Voucher extends BaseEntity{
 	public void setDiscount(Integer discount) {
 		this.discount = discount;
 	}
-	 
-	
 	
 	
 }

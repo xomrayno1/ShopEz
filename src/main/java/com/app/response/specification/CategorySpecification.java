@@ -43,7 +43,7 @@ public class CategorySpecification implements Specification<Category>{
 			predicates.add(cateName);
 		}
 		
-		Predicate proStatus = criteriaBuilder.equal(root.get("status"), Constant.Status.ACTIVE);
+		Predicate proStatus = criteriaBuilder.equal(root.get("status"), Constant.Status.ACTIVE.getValue());
 		predicates.add(proStatus);
 	 
 		

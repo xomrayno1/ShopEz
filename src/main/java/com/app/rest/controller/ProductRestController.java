@@ -14,6 +14,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -39,7 +40,7 @@ import com.app.utils.ResponseUtil;
 
 @RestController
 @RequestMapping(value = Constant.PRODUCT_API)
-@CrossOrigin(origins = {Constant.CROSS_ORIGIN_LOCAL_8000, Constant.CROSS_ORIGIN_LOCAL_8001, Constant.CROSS_ORIGIN_LOCAL_8080 })
+@CrossOrigin(origins = {Constant.CROSS_ORIGIN_LOCAL_8000, Constant.CROSS_ORIGIN_LOCAL_8001, Constant.CROSS_ORIGIN_LOCAL_8080, Constant.CROSS_ORIGIN_LOCAL_3000, Constant.CROSS_ORIGIN_LOCAL_3001 })
 public class ProductRestController {
 	
 	private ProductService productService;
@@ -108,7 +109,7 @@ public class ProductRestController {
 	}
 	
 	@PostMapping(Constant.PRODUCT_CREATE)
-	public ResponseEntity<APIResponse> createProduct(@RequestBody CreateProductRequest productRequest) {
+	public ResponseEntity<APIResponse> createProduct(@ModelAttribute CreateProductRequest productRequest) {
 
 		Product productByCode = productService.findByCode(productRequest.getCode());
 		if (productByCode == null) {
@@ -117,10 +118,13 @@ public class ProductRestController {
 					
 				Product product = mapper.map(productRequest, Product.class);
 				Category category = categoryService.findById(productRequest.getCategoryId());
+				if(category == null) {
+					throw new ApplicationException(APIStatus.ERR_CATEGORY_ID_NOT_EXIST);
+				}
 				product.setCategory(category);
 				if(productRequest.getImageFile() != null && !productRequest.getImageFile().isEmpty()) {
 					String imgName = AppUtils.uploadFile(productRequest.getImageFile());
-					product.setImageUrl("/uploads/" +imgName);	 
+					product.setImageUrl("/upload/" +imgName);	 
 				}
 				
 				productService.insert(product);
@@ -139,7 +143,7 @@ public class ProductRestController {
  
 	
 	@PutMapping(Constant.PRODUCT_UPDATE)
-	public ResponseEntity<APIResponse> updateProduct(@RequestBody UpdateProductRequest productRequest) {
+	public ResponseEntity<APIResponse> updateProduct(@ModelAttribute UpdateProductRequest productRequest) {
 		
 		Product productByCode = productService.findByName(productRequest.getCode());
 		Product productById = productService.findById(productRequest.getId());
@@ -156,7 +160,7 @@ public class ProductRestController {
 				Category category = categoryService.findById(productRequest.getCategoryId());
 				if(productRequest.getImageFile() != null && !productRequest.getImageFile().isEmpty()) {
 					String imgName = AppUtils.uploadFile(productRequest.getImageFile());
-					product.setImageUrl("/uploads/" +imgName);
+					product.setImageUrl("/upload/" +imgName);
 					
 				}
 				product.setStatus(productById.getStatus());

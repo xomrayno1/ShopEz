@@ -29,6 +29,6 @@ public interface UserService {
 	
 	List<Users> findAll();
 	
-	Page<Users> doFilterSearchPagingUsers(String searchKey, Integer status, int pageSize, int pageNumber);
+	Page<Users> doFilterSearchPagingUsers(String searchKey,  int pageSize, int pageNumber);
 	 
 }
