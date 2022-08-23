@@ -36,6 +36,7 @@ public enum APIStatus {
 	ERR_UPDATE_USER(160, "Không thể cập nhật user."),
 	ERR_USER_LEVEL_NOT_EXIST(157, "Chức vụ không tồn tại."),
 	ERR_USER_DEPARTMENT_NOT_EXIST(157,"Phòng ban không tồn tại."),
+	ERR_EMAIL_ALREADY_EXISTS(158,"Email đã tồn tại."),
 	//notify err message voucher 
 	ERR_VOUCHER_LIST_IS_EMPTY(156, "Danh sách voucher trống."),
 	ERR_VOUCHER_ID_NOT_EXIST(157, "Voucher không tồn tại."),

@@ -1,6 +1,12 @@
 package com.app.rest.controller;
 
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -15,9 +21,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.app.config.JwtTokenUtil;
+import com.app.exception.ApplicationException;
+import com.app.model.Roles;
 import com.app.model.Users;
+import com.app.model.request.CreateUserRequest;
 import com.app.model.request.JwtRequest;
 import com.app.model.response.JwtResponse;
+import com.app.response.APIStatus;
 import com.app.service.JwtUserDetailsService;
 import com.app.service.RoleService;
 import com.app.service.UserService;
@@ -43,35 +53,28 @@ public class AuthRestController {
     
     @Autowired
 	private PasswordEncoder bcryptEncoder;
-//
-//
-//    @RequestMapping(value = "/register", method = RequestMethod.POST)
-//    public ResponseEntity<Object> saveUser(@RequestBody UserRequest userRequest) throws Exception {
-//    	boolean flag = userService.isExistEmail(userRequest.getEmail());
-//    	Map<String, Object> data = new HashMap();
-//    	if (flag) {
-//    		data.put("code", ApiStatus.EMAIL_IS_EXIST.getCode());
-//    		data.put("message", ApiStatus.EMAIL_IS_EXIST.getMessage());
-//			return new ResponseEntity<Object>(data, HttpStatus.CONFLICT);
-//		}
-//		flag = userService.isExistUsername(userRequest.getUsername());
-//		if (flag) {
-//			data.put("code", ApiStatus.USERNAME_IS_EXIST.getCode());
-//    		data.put("message", ApiStatus.USERNAME_IS_EXIST.getMessage());
-//			return new ResponseEntity<Object>(data, HttpStatus.CONFLICT);
-//		}
-//    	
-//    	Users user = new Users();
-//    	user.setEmail(userRequest.getEmail());
-//    	user.setActiveFlag(Constant.ACTIVE);
-//    	user.setPassword(bcryptEncoder.encode(userRequest.getPassword()));
-//    	Set<Roles> roles = new HashSet();
-//    	Roles role = roleService.findById(Constant.ROLE_PATIENT);
-//    	roles.add(role);
-//    	user.setRoles(roles);
-//    	user.setUsername(userRequest.getUsername());
-//        return ResponseEntity.ok(userService.save(user));
-//    }
+ 
+    @RequestMapping(value = "/register", method = RequestMethod.POST)
+    public ResponseEntity<Object> saveUser(@RequestBody CreateUserRequest createUserRequest) throws Exception {
+    	Users users = userService.findByUsername(createUserRequest.getUsername());
+    	if(users != null) {
+    		throw new ApplicationException(APIStatus.ERR_USER_NAME_ALREADY_EXISTS);
+    	}
+ 
+    	Roles role = roleService.findById(createUserRequest.getRole());
+		Set<Roles> setRoles = new HashSet<Roles>();
+		setRoles.add(role);
+		users = new Users();
+		users.setRoles(setRoles);
+		users.setEmail(createUserRequest.getEmail());
+		users.setUsername(createUserRequest.getUsername());
+		users.setName(createUserRequest.getName());
+		users.setStatus(Constant.Status.ACTIVE.getValue());
+		users.setPassword(bcryptEncoder.encode(createUserRequest.getPassword()));
+		
+        return ResponseEntity.ok(userService.save(users));
+    	 
+    }
 
     @RequestMapping(value = Constant.AUTH_API, method = RequestMethod.POST)
     public ResponseEntity<?> createAuthenticationToken(@RequestBody JwtRequest authenticationRequest) throws Exception {
