@@ -45,15 +45,11 @@ public enum APIStatus {
 	ERR_UPDATE_VOUCHER(160, "Không thể cập nhật voucher."),
 	//notify err message invoice
 	ERR_INVOICE_LIST_IS_EMPTY(156, "Danh sách hoá đơn trống."),
-	ERR_INVOICE_ID_NOT_EXIST(157, "Hoá đơn nhân không tồn tại."),
-	ERR_INVOICE_CODE_ALREADY_EXISTS(158, "Hoá đơnn đã tồn tại."),
+	ERR_INVOICE_ID_NOT_EXIST(157, "Hoá đơn không tồn tại."),
+	ERR_INVOICE_CODE_ALREADY_EXISTS(158, "Hoá đơn đã tồn tại."),
 	ERR_CREATE_INVOICE(159, "Không thể thêm hoá đơn."),
 	ERR_UPDATE_INVOICE(160, "Không thể cập nhật hoá đơn."),
-	 
-	
-	//notify err message invoice
-	ERR_WAREHOUSE_DRUG_LIST_IS_EMPTY(156, "Danh sách thuốc trong kho  trống."),
-	ERR_CREATE_WAREHOUSE_DRUG(159, "Không thể thêm thuốc trong kho."),
+ 
 	;
 	private static Map<Integer, APIStatus> values = new HashMap<Integer, APIStatus>(APIStatus.values().length);
 

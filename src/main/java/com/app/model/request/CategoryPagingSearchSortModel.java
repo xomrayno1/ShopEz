@@ -2,7 +2,6 @@ package com.app.model.request;
 
 public class CategoryPagingSearchSortModel {
 	private String searchKey;
-	private Integer status;
 	private int pageNumber;
     private int pageSize;
     
@@ -25,13 +24,6 @@ public class CategoryPagingSearchSortModel {
 	public void setPageSize(int pageSize) {
 		this.pageSize = pageSize;
 	}
-	public Integer getStatus() {
-		return status;
-	}
-	public void setStatus(Integer status) {
-		this.status = status;
-	}
-   
-    
+ 
     
 }

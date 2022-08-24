@@ -24,9 +24,9 @@ public class Invoice extends BaseEntity{
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-	@ManyToOne
-	@JoinColumn(name="user_id")
-	private Users users;
+//	@ManyToOne
+//	@JoinColumn(name="user_id")
+//	private Users users;
 	  
 	@OneToMany(mappedBy = "invoice", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private Set<InvoiceDetail> invoiceDetails;
@@ -66,13 +66,13 @@ public class Invoice extends BaseEntity{
 		this.id = id;
 	}
 
-	public Users getUsers() {
-		return users;
-	}
-
-	public void setUsers(Users users) {
-		this.users = users;
-	}
+//	public Users getUsers() {
+//		return users;
+//	}
+//
+//	public void setUsers(Users users) {
+//		this.users = users;
+//	}
 
 	public Set<InvoiceDetail> getInvoiceDetails() {
 		return invoiceDetails;

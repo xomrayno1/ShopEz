@@ -9,7 +9,7 @@ import javax.persistence.ManyToOne;
 import com.app.model.Voucher;
 
 public class CreateInvoiceRequest {
-	private Long userId;
+	//private Long userId;
 
 	private BigDecimal amount; //thanh tien 
 	
@@ -27,14 +27,14 @@ public class CreateInvoiceRequest {
 	private List<CreateInvoiceDetailRequest> details;
 	
 	
- 
-	public Long getUserId() {
-		return userId;
-	}
-
-	public void setUserId(Long userId) {
-		this.userId = userId;
-	}
+// 
+//	public Long getUserId() {
+//		return userId;
+//	}
+//
+//	public void setUserId(Long userId) {
+//		this.userId = userId;
+//	}
 
 	public BigDecimal getAmount() {
 		return amount;

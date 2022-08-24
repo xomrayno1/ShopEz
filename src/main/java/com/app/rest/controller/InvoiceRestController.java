@@ -131,9 +131,9 @@ public class InvoiceRestController {
 			Invoice invoice = mapper.map(invoiceRequest, Invoice.class);
 			 
 			invoice.setType(Constant.INVOICE_TYPE.IN_PROGRESS.getValue());
-			Users users = userService.findById(invoiceRequest.getUserId());
+			//Users users = userService.findById(invoiceRequest.getUserId());
 			invoice.setShipPrice(BigDecimal.ZERO);
-			invoice.setUsers(users); 
+			//invoice.setUsers(users); 
 			invoice.setDate(new Date());
 			Invoice newInvoice = invoiceService.insert(invoice);
 			BigDecimal totalAmount = BigDecimal.ZERO;
@@ -153,6 +153,7 @@ public class InvoiceRestController {
 				Voucher voucher = voucherService.findByCode(invoiceRequest.getVoucherCode());
 				if(voucher != null && voucher.getDiscount() != null) {
 					discountAmount = totalAmount.multiply(new BigDecimal(voucher.getDiscount())).divide(new BigDecimal(100));
+					invoice.setVoucher(voucher);
 				}
 			}
 			invoice.setAmount(totalAmount);
@@ -207,11 +208,11 @@ public class InvoiceRestController {
 				}
 			}
  
-			log.info("delete invoice successfully");
-			return ResponseUtil.responseSuccess("Delete invoice successfully");
+			log.info("cancel invoice successfully");
+			return ResponseUtil.responseSuccess("Delete cancel successfully");
 		} catch (Exception e) {
 			// TODO: handle exception
-			log.error("error delete invoice id not exist");
+			log.error("error cancel invoice id not exist");
 			throw new ApplicationException(APIStatus.ERR_INVOICE_ID_NOT_EXIST);
 		}
 	}
@@ -230,11 +231,11 @@ public class InvoiceRestController {
 				}
 			}
  
-			log.info("delete invoice successfully");
-			return ResponseUtil.responseSuccess("Delete invoice successfully");
+			log.info("complete invoice successfully");
+			return ResponseUtil.responseSuccess("complete invoice successfully");
 		} catch (Exception e) {
 			// TODO: handle exception
-			log.error("error delete invoice id not exist");
+			log.error("error complete invoice id not exist");
 			throw new ApplicationException(APIStatus.ERR_INVOICE_ID_NOT_EXIST);
 		}
 	}

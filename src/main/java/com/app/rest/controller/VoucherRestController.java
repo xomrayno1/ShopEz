@@ -29,7 +29,6 @@ import com.app.model.request.VoucherPagingSearchSortModel;
 import com.app.model.response.ModelResponse;
 import com.app.response.APIResponse;
 import com.app.response.APIStatus;
-import com.app.service.CategoryService;
 import com.app.service.VoucherService;
 import com.app.utils.Constant;
 import com.app.utils.ResponseUtil;
@@ -40,15 +39,15 @@ import com.app.utils.ResponseUtil;
 public class VoucherRestController {
 	
 	private VoucherService voucherService;
-	private CategoryService categoryService;
+ 
 	
 	@Autowired
 	ServletContext context;
 	
 	@Autowired
-	public VoucherRestController(VoucherService voucherService, CategoryService categoryService ) {
+	public VoucherRestController(VoucherService voucherService ) {
 		this.voucherService = voucherService;
-		this.categoryService = categoryService;	 
+		 
 	}
 
 	private ModelMapper mapper = new ModelMapper();
@@ -73,7 +72,7 @@ public class VoucherRestController {
 	}
  
 	@GetMapping(Constant.VOUCHER_GET_DETAIL)
-	public ResponseEntity<APIResponse> getVoucherDetail(@PathVariable("proId") long proId) {
+	public ResponseEntity<APIResponse> getVoucherDetail(@PathVariable("voucherId") long proId) {
 		Voucher voucher = voucherService.findById(proId);
 		if(voucher != null) {
 			return ResponseUtil.responseSuccess(voucher);
@@ -93,8 +92,7 @@ public class VoucherRestController {
 					log.error("Error delete voucher id not exist {}", proId);
 					throw new ApplicationException(APIStatus.ERR_VOUCHER_ID_NOT_EXIST); 
 				} 
-				getVoucher.setStatus(Constant.Status.IN_ACTIVE.getValue());
-				voucherService.update(getVoucher);
+				voucherService.delete(getVoucher);
 			}
 			return ResponseUtil.responseSuccess("Delete voucher successfully");
 		} catch (Exception e) {
@@ -117,6 +115,7 @@ public class VoucherRestController {
 			mapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
 			Voucher voucher = mapper.map(voucherRequest, Voucher.class);
 			voucher.setCode(voucherCode);
+			voucherService.insert(voucher);
 		} catch (Exception e) {
 			log.error("Error create voucher", e.getMessage());
 			e.printStackTrace();
@@ -140,7 +139,8 @@ public class VoucherRestController {
 				Voucher voucher = mapper.map(voucherRequest, Voucher.class);
 				voucher.setCreatedDate(voucherById.getCreatedDate());
 				voucher.setUpdatedDate(voucherById.getUpdatedDate());
-				voucher.setStatus(voucher.getStatus());
+				voucher.setStatus(voucherById.getStatus());
+				voucher.setCode(voucherById.getCode());
 				voucherService.update(voucher);
 				
 				log.info("Update voucher successfully");
