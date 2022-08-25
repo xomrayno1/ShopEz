@@ -33,6 +33,7 @@ public class ProductServiceImpl implements ProductService{
 	@Override
 	public Product update(Product instance) {
 		// TODO Auto-generated method stub
+		instance.setStatus(Constant.Status.ACTIVE.getValue());
 		return proRepo.save(instance);
 	}
 
