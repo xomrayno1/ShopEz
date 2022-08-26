@@ -132,13 +132,17 @@ public class InvoiceRestController {
 			Invoice invoice = mapper.map(invoiceRequest, Invoice.class);
 			 
 			invoice.setType(Constant.INVOICE_TYPE.IN_PROGRESS.getValue());
-			Users users = userService.findById(invoiceRequest.getUserId());
-			if (users == null) {
-				log.error("error username already exists");
-				throw new ApplicationException(APIStatus.ERR_USER_NAME_ALREADY_EXISTS);
+			if(invoiceRequest.getUserId() != null) {
+				Users users = userService.findById(invoiceRequest.getUserId());
+				if (users == null) {
+					log.error("error username already exists");
+					throw new ApplicationException(APIStatus.ERR_USER_NAME_ALREADY_EXISTS);
+				}
+				invoice.setUsers(users); 
 			}
+ 
 			invoice.setShipPrice(BigDecimal.ZERO);
-			invoice.setUsers(users); 
+			 
 			invoice.setDate(new Date());
 			if(invoice.getPayment() == null) {
 				invoice.setPayment(Constant.PAYMENT.THANH_TOAN_KHI_DAT_HANG.getValue());
