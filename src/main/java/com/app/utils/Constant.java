@@ -104,22 +104,31 @@ public interface Constant {
 		}
 	}
 	
-	enum WareHouseType {
-		KHO_CHAN(1),
-		KHO_LE(2),
-		KHO_CO_SO(3),
-		QUAY_THUOC(4)
-		;
+	enum PAYMENT {
+		THANH_TOAN_KHI_DAT_HANG(1, "Thanh toán khi đặt hàng"),
+		MOMO(2, "MOMO"),
+		ZALOPAY(3, "ZALOPAY"),
+		PAYPAL(4, "PAYPAL"),
+		CARD(5, "Thẻ");
 		
 		private final int value;
-
-		private WareHouseType(int value) {
+		private final String text;
+		
+		
+		
+		private PAYMENT(int value, String text) {
 			this.value = value;
+			this.text = text;
 		}
-
 		public int getValue() {
 			return value;
 		}
+		public String getText() {
+			return text;
+		}
+
+		
+		 
 	}
 	
 	enum ROLE {

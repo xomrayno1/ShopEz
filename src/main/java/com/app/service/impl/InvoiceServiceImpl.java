@@ -62,9 +62,9 @@ public class InvoiceServiceImpl implements InvoiceService{
 	}
 
 	@Override
-	public Page<Invoice> doFilterSearchPagingInvoice(int pageSize, int pageNumber) {
+	public Page<Invoice> doFilterSearchPagingInvoice(Long userId, Integer type, int pageSize, int pageNumber) {
 		// TODO Auto-generated method stub
-		return invoiceRepository.findAll(new InvoiceSpecification(), PageRequest.of(pageNumber - 1, pageSize));
+		return invoiceRepository.findAll(new InvoiceSpecification(userId, type), PageRequest.of(pageNumber - 1, pageSize));
 	}
  
  

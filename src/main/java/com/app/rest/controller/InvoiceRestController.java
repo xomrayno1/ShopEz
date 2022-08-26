@@ -39,6 +39,7 @@ import com.app.service.ProductService;
 import com.app.service.UserService;
 import com.app.service.VoucherService;
 import com.app.utils.Constant;
+import com.app.utils.Constant.PAYMENT;
 import com.app.utils.ResponseUtil;
 
 
@@ -76,7 +77,7 @@ public class InvoiceRestController {
 	
 	@PostMapping(value = Constant.INVOICE_GET_LIST_PAGING_SORT_SEARCH_FILTER)
 	public ResponseEntity<APIResponse> getListPagingSortSearchFilter(@RequestBody InvoicePagingSearchSortModel cpssm){
-		Page<Invoice> invoices =  invoiceService.doFilterSearchPagingInvoice(cpssm.getPageSize(), cpssm.getPageNumber());
+		Page<Invoice> invoices =  invoiceService.doFilterSearchPagingInvoice(cpssm.getUserId(), cpssm.getType(), cpssm.getPageSize(), cpssm.getPageNumber());
 		try {
 			if(invoices == null) {
 				throw new ApplicationException(APIStatus.ERR_INVOICE_LIST_IS_EMPTY);
@@ -131,10 +132,26 @@ public class InvoiceRestController {
 			Invoice invoice = mapper.map(invoiceRequest, Invoice.class);
 			 
 			invoice.setType(Constant.INVOICE_TYPE.IN_PROGRESS.getValue());
-			//Users users = userService.findById(invoiceRequest.getUserId());
+			Users users = userService.findById(invoiceRequest.getUserId());
+			if (users == null) {
+				log.error("error username already exists");
+				throw new ApplicationException(APIStatus.ERR_USER_NAME_ALREADY_EXISTS);
+			}
 			invoice.setShipPrice(BigDecimal.ZERO);
-			//invoice.setUsers(users); 
+			invoice.setUsers(users); 
 			invoice.setDate(new Date());
+			if(invoice.getPayment() == null) {
+				invoice.setPayment(Constant.PAYMENT.THANH_TOAN_KHI_DAT_HANG.getValue());
+				invoice.setPaymentText(Constant.PAYMENT.THANH_TOAN_KHI_DAT_HANG.getText());
+			}else {
+				for(PAYMENT payment : Constant.PAYMENT.values()) {
+					if(payment.getValue() == invoice.getPayment()) {
+						invoice.setPaymentText(payment.getText());
+						break;
+					}
+				}
+			}
+			
 			Invoice newInvoice = invoiceService.insert(invoice);
 			BigDecimal totalAmount = BigDecimal.ZERO;
 			for(CreateInvoiceDetailRequest detail: invoiceRequest.getDetails()) {

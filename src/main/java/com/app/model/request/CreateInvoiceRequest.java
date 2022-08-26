@@ -9,10 +9,8 @@ import javax.persistence.ManyToOne;
 import com.app.model.Voucher;
 
 public class CreateInvoiceRequest {
-	//private Long userId;
-
+	private Long userId;
 	private BigDecimal amount; //thanh tien 
-	
 	//info
 	
 	private String phone;
@@ -21,20 +19,18 @@ public class CreateInvoiceRequest {
 	private String district;
 	private String ward;
 	private String street;
- 
+	private Integer payment;
 	private String voucherCode;
 
 	private List<CreateInvoiceDetailRequest> details;
-	
-	
-// 
-//	public Long getUserId() {
-//		return userId;
-//	}
-//
-//	public void setUserId(Long userId) {
-//		this.userId = userId;
-//	}
+ 
+	public Long getUserId() {
+		return userId;
+	}
+
+	public void setUserId(Long userId) {
+		this.userId = userId;
+	}
 
 	public BigDecimal getAmount() {
 		return amount;
@@ -106,6 +102,14 @@ public class CreateInvoiceRequest {
 
 	public void setVoucherCode(String voucherCode) {
 		this.voucherCode = voucherCode;
+	}
+
+	public Integer getPayment() {
+		return payment;
+	}
+
+	public void setPayment(Integer payment) {
+		this.payment = payment;
 	}
 
  

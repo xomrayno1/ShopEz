@@ -1,8 +1,8 @@
 package com.app.model.request;
 
 public class InvoicePagingSearchSortModel {
-	private String dateFrom;
-	private String dateTo;
+	private Integer type;
+	private Long userId;
 	private int pageNumber;
     private int pageSize;
     
@@ -18,17 +18,17 @@ public class InvoicePagingSearchSortModel {
 	public void setPageSize(int pageSize) {
 		this.pageSize = pageSize;
 	}
-	public String getDateFrom() {
-		return dateFrom;
+	public Long getUserId() {
+		return userId;
 	}
-	public void setDateFrom(String dateFrom) {
-		this.dateFrom = dateFrom;
+	public void setUserId(Long userId) {
+		this.userId = userId;
 	}
-	public String getDateTo() {
-		return dateTo;
+	public Integer getType() {
+		return type;
 	}
-	public void setDateTo(String dateTo) {
-		this.dateTo = dateTo;
+	public void setType(Integer type) {
+		this.type = type;
 	}
     
     

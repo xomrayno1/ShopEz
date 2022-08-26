@@ -15,6 +15,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
@@ -24,9 +25,9 @@ public class Invoice extends BaseEntity{
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-//	@ManyToOne
-//	@JoinColumn(name="user_id")
-//	private Users users;
+	@ManyToOne
+	@JoinColumn(name="user_id")
+	private Users users;
 	  
 	@OneToMany(mappedBy = "invoice", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private Set<InvoiceDetail> invoiceDetails;
@@ -51,6 +52,10 @@ public class Invoice extends BaseEntity{
 	private String district;
 	private String ward;
 	private String street;
+	
+	private Integer payment;
+	
+	private String paymentText;
  
 	@ManyToOne
 	@JoinColumn(name="voucher_id")
@@ -66,13 +71,13 @@ public class Invoice extends BaseEntity{
 		this.id = id;
 	}
 
-//	public Users getUsers() {
-//		return users;
-//	}
-//
-//	public void setUsers(Users users) {
-//		this.users = users;
-//	}
+	public Users getUsers() {
+		return users;
+	}
+
+	public void setUsers(Users users) {
+		this.users = users;
+	}
 
 	public Set<InvoiceDetail> getInvoiceDetails() {
 		return invoiceDetails;
@@ -184,6 +189,22 @@ public class Invoice extends BaseEntity{
 
 	public void setType(Integer type) {
 		this.type = type;
+	}
+
+	public Integer getPayment() {
+		return payment;
+	}
+
+	public void setPayment(Integer payment) {
+		this.payment = payment;
+	}
+
+	public String getPaymentText() {
+		return paymentText;
+	}
+
+	public void setPaymentText(String paymentText) {
+		this.paymentText = paymentText;
 	}
 	
 	
