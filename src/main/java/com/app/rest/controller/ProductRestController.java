@@ -98,7 +98,7 @@ public class ProductRestController {
 					throw new ApplicationException(APIStatus.ERR_PRODUCT_ID_NOT_EXIST); 
 				} 
 				getProduct.setStatus(Constant.Status.IN_ACTIVE.getValue());
-				productService.update(getProduct);
+				productService.delete(getProduct);
 			}
 			return ResponseUtil.responseSuccess("Delete product successfully");
 		} catch (Exception e) {
