@@ -94,7 +94,7 @@ public class UserRestController {
 	@PostMapping(value = Constant.USER_CREATE)
 	public ResponseEntity<APIResponse> createUser(@Validated @RequestBody CreateUserRequest createUserRequest){
 		Users user = userService.findByUsername(createUserRequest.getUsername());
-		if (user != null) {
+		if (user != null && user.getStatus() == Constant.Status.ACTIVE.getValue()) {
 			log.error("error username already exists");
 			throw new ApplicationException(APIStatus.ERR_USER_NAME_ALREADY_EXISTS);
 		}

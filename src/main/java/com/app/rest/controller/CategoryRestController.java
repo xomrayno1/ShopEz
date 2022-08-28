@@ -96,7 +96,7 @@ public class CategoryRestController {
 	@PostMapping(value = Constant.CATEGORY_CREATE)
 	public ResponseEntity<APIResponse> createCategory(@Validated @RequestBody CreateCategoryRequest categoryRequest){
 		Category getCategory = categoryService. findByName(categoryRequest.getName());
-		if (getCategory != null) {
+		if (getCategory != null && getCategory.getStatus() == Constant.Status.ACTIVE.getValue()) {
 			log.error("error category name already exists");
 			throw new ApplicationException(APIStatus.ERR_CATEGORY_NAME_ALREADY_EXISTS);
 		}

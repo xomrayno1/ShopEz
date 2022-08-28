@@ -112,7 +112,7 @@ public class ProductRestController {
 	public ResponseEntity<APIResponse> createProduct(@ModelAttribute CreateProductRequest productRequest) {
 
 		Product productByCode = productService.findByCode(productRequest.getCode());
-		if (productByCode == null) {
+		if (productByCode == null || productByCode.getStatus() == Constant.Status.IN_ACTIVE.getValue()) {
 			try {
 				mapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
 					
