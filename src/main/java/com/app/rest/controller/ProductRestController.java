@@ -163,6 +163,7 @@ public class ProductRestController {
 					product.setImageUrl("/upload/" +imgName);
 					
 				}
+				product.setImageUrl(productById.getImageUrl());
 				product.setStatus(productById.getStatus());
 				product.setCreatedDate(productById.getCreatedDate());
 				product.setCategory(category);
