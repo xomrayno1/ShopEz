@@ -162,8 +162,9 @@ public class ProductRestController {
 					String imgName = AppUtils.uploadFile(productRequest.getImageFile());
 					product.setImageUrl("/upload/" +imgName);
 					
+				}else {
+					product.setImageUrl(productById.getImageUrl());
 				}
-				product.setImageUrl(productById.getImageUrl());
 				product.setStatus(productById.getStatus());
 				product.setCreatedDate(productById.getCreatedDate());
 				product.setCategory(category);
