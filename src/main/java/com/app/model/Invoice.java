@@ -33,7 +33,7 @@ public class Invoice extends BaseEntity{
 	private Set<InvoiceDetail> invoiceDetails;
 	
 	@Temporal(TemporalType.DATE)
-	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy", timezone = "Asia/Bangkok")
 	private Date date;
 	
 	private BigDecimal amount; //thanh tien 
